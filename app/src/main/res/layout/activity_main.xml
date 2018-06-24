@@ -13,7 +13,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Y dpi:"
+        android:text="@string/y_dpi"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toEndOf="@+id/xdp"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="Yours X dpi:"
+        android:text="@string/yours_x_dpi"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,7 +35,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Yours X px:"
+        android:text="@string/yours_x_px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -46,7 +46,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Y px:"
+        android:text="@string/y_px"
         app:layout_constraintStart_toEndOf="@+id/xpx"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -57,7 +57,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="0"
+        android:text="@string/Zero"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,7 +68,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="0"
+        android:text="@string/Zero"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:text="0"
+        android:text="@string/Zero"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toTopOf="@+id/textView3" />
 
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:text="0"
+        android:text="@string/Zero"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="@+id/textView3" />
 
@@ -101,7 +101,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="number|numberSigned"
-        android:text="0"
+        android:text="@string/Zero"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -113,7 +113,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="0"
+        android:text="@string/Zero"
         app:layout_constraintBottom_toBottomOf="@+id/editDP"
         app:layout_constraintStart_toEndOf="@+id/editDP"
         app:layout_constraintTop_toTopOf="@+id/editDP" />
@@ -127,7 +127,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Convert DPI to PX"
+        android:text="@string/convert_dpi_to_px"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -141,7 +141,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="number|numberSigned"
-        android:text="0"
+        android:text="@string/Zero"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
@@ -152,7 +152,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:text="0"
+        android:text="@string/Zero"
         app:layout_constraintBottom_toBottomOf="@+id/editPX"
         app:layout_constraintStart_toEndOf="@+id/editDP"
         app:layout_constraintTop_toTopOf="@+id/editPX" />
@@ -165,7 +165,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:text="Convert PX to DPI"
+        android:text="@string/convert_px_to_dpi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editDP" />
