@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">HTC Android</string>
+    <string name="Zero">0</string>
+    <string name="convert_dpi_to_px">Convert DPI to PX</string>
+    <string name="convert_px_to_dpi">Convert PX to DPI</string>
+    <string name="y_dpi">Y dpi:</string>
+    <string name="yours_x_dpi">Yours X dpi:</string>
+    <string name="yours_x_px">Yours X px:</string>
+    <string name="y_px">Y px:</string>
 </resources>
