@@ -9,11 +9,14 @@ import android.util.DisplayMetrics;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.converters.Converters;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-import static com.example.evgeniy.htcandroid.Converters.*;
+import static com.example.converters.Converters.*;
+
 
 public class MainActivity extends AppCompatActivity {
 
