@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.ypx)
     TextView ypx;
 
-    private DisplayMetrics displayMetrics;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 calcPX.setText(String.valueOf(dpFromPx(Float.parseFloat(text),getApplicationContext())));
             }
         });
-        displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
+        DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
         xdp.setText(String.valueOf(displayMetrics.xdpi));
         ydp.setText(String.valueOf(displayMetrics.ydpi));
         xpx.setText(String.valueOf(displayMetrics.widthPixels));
