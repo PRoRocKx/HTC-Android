@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">HTC Android</string>
+    <string name="app_name">HTC Android</string>
     <string name="radiobutton" translatable="false">RadioButton</string>
     <string name="_9_patch" translatable="false">9-patch</string>
     <string name="checkbox" translatable="false">CheckBox</string>
