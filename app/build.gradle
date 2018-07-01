@@ -16,6 +16,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "one", "two"
+    productFlavors {
+        one {
+            applicationId "com.example.evgeniy.htcandroid1"
+            versionName "1.0.1"
+            dimension "one"
+        }
+        two {
+            applicationId "com.example.evgeniy.htcandroid2"
+            versionName "1.0.1.2"
+            dimension "two"
+        }
+    }
 }
 
 dependencies {
