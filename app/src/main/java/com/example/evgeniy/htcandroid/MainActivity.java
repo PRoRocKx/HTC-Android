@@ -1,6 +1,5 @@
 package com.example.evgeniy.htcandroid;
 
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,14 +10,11 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 import static com.example.evgeniy.htcandroid.Converters.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Nullable
-    private Unbinder unbinder;
 
     @BindView(R.id.calcDP)
     TextView calcDP;
@@ -44,40 +40,42 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        unbinder = ButterKnife.bind(this);
-
+        ButterKnife.bind(this);
         editDP.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
                 String text = editable.toString();
-                if (text.isEmpty()){
+                if (text.isEmpty()) {
                     return;
                 }
-                calcDP.setText(String.valueOf(pxFromDp(Float.parseFloat(text),getApplicationContext())));
+                calcDP.setText(String.valueOf(pxFromDp(Float.parseFloat(text), getApplicationContext())));
             }
         });
 
         editPX.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
                 String text = editable.toString();
-                if (text.isEmpty()){
+                if (text.isEmpty()) {
                     return;
                 }
-                calcPX.setText(String.valueOf(dpFromPx(Float.parseFloat(text),getApplicationContext())));
+                calcPX.setText(String.valueOf(dpFromPx(Float.parseFloat(text), getApplicationContext())));
             }
         });
         DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
@@ -87,13 +85,4 @@ public class MainActivity extends AppCompatActivity {
         ypx.setText(String.valueOf(displayMetrics.heightPixels));
     }
 
-
-
-    @Override
-    protected void onDestroy() {
-        if (unbinder != null)
-            unbinder.unbind();
-        super.onDestroy();
-
-    }
 }
