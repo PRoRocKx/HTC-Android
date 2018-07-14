@@ -1,6 +1,5 @@
 package com.example.evgeniy.htcandroid;
 
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,10 +8,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Stack;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,20 +26,18 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.stackText)
     TextView stackText;
 
-    private Unbinder unbinder;
-
-    private ArrayList<Integer> list;
+    private Stack<Integer> stack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        unbinder = ButterKnife.bind(this);
+        ButterKnife.bind(this);
+        stack = new Stack<>();
         if (savedInstanceState != null) {
-            list = savedInstanceState.getIntegerArrayList(LIST);
+            stack.addAll(savedInstanceState.getIntegerArrayList(LIST));
         } else {
-            list = new ArrayList<>();
-            list.add(0);
+            stack.push(0);
         }
         showCurrent();
         btnNext.setOnClickListener(view -> setNewInt());
@@ -48,18 +45,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setNewInt() {
-        list.add(new Random().nextInt());
+        stack.push(new Random().nextInt());
         showCurrent();
     }
 
     private void setPrev() {
-        list.remove(list.size() - 1);
+        stack.pop();
         showCurrent();
     }
 
     private void showCurrent() {
-        textView.setText(String.valueOf(list.get(list.size() - 1)));
-        if (list.size() > 1) {
+        textView.setText(String.valueOf(stack.peek()));
+        if (stack.size() > 1) {
             btnPrev.setVisibility(View.VISIBLE);
         } else {
             btnPrev.setVisibility(View.GONE);
@@ -69,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void showStack() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            stringBuilder.append(list.get(i)).append('\n');
+        for (int i = 0; i < stack.size(); i++) {
+            stringBuilder.append(stack.get(i)).append('\n');
         }
         stackText.setText(stringBuilder.toString());
     }
@@ -78,14 +75,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putIntegerArrayList(LIST, list);
+        outState.putIntegerArrayList(LIST, new ArrayList<>(stack));
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (unbinder != null) {
-            unbinder.unbind();
-        }
-    }
 }
