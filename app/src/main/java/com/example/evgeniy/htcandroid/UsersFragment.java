@@ -1,11 +1,11 @@
 package com.example.evgeniy.htcandroid;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -15,7 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.evgeniy.htcandroid.dummy.Users;
+import com.example.evgeniy.htcandroid.dummy.User;
 
 import java.util.ArrayList;
 
@@ -26,6 +26,19 @@ import butterknife.Unbinder;
 
 public class UsersFragment extends Fragment {
 
+    private static final int REQUEST_ADD_USER = 1;
+    public static final String NAME = "name";
+    public static final String ADDRESS = "address";
+    public static final String INFO = "info";
+    private static final String USERS = "User";
+
+
+
+    public static UsersFragment newInstance() {
+        return new UsersFragment();
+    }
+
+
     @BindView(R.id.list)
     RecyclerView recyclerView;
 
@@ -35,21 +48,8 @@ public class UsersFragment extends Fragment {
     private Unbinder unbinder;
 
 
-
-    private static final int REQUEST_ADD_USER = 1;
-
     private MyUsersRecyclerViewAdapter adapter;
 
-    @SuppressWarnings("unused")
-    public static UsersFragment newInstance() {
-        return new UsersFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,52 +58,56 @@ public class UsersFragment extends Fragment {
 
         unbinder = ButterKnife.bind(this, view);
 
-        Context context = view.getContext();
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        if (savedInstanceState ==null) {
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        if (savedInstanceState == null) {
             adapter = new MyUsersRecyclerViewAdapter(new ArrayList<>());
+        } else {
+            adapter = new MyUsersRecyclerViewAdapter(savedInstanceState.getParcelableArrayList(USERS));
         }
-        else
-            adapter = new MyUsersRecyclerViewAdapter(savedInstanceState.getParcelableArrayList("Users"));
         recyclerView.setAdapter(adapter);
 
         fab.setOnClickListener(view1 -> showDialog());
-        return view;
     }
 
     private void showDialog() {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
-       // Fragment prev = getFragmentManager().findFragmentByTag("addUserFragment");
+        // Fragment prev = getFragmentManager().findFragmentByTag("addUserFragment");
         //if (prev != null) {
         //    fragmentTransaction.remove(prev);
-       // }
-       // fragmentTransaction.addToBackStack(null);
+        // }
+        // fragmentTransaction.addToBackStack(null);
 
         AddUserFragment addUserFragment = AddUserFragment.newInstance();
         addUserFragment.setTargetFragment(this, REQUEST_ADD_USER);
-        addUserFragment.show(fragmentTransaction, "addUserFragment");
+        addUserFragment.show(fragmentTransaction, AddUserFragment.class.getSimpleName());
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == REQUEST_ADD_USER) {
-                String name = data.getStringExtra("name");
-                String address = data.getStringExtra("address");
-                String info = data.getStringExtra("info");
-                Users.User user = new Users.User(name, address, info);
+        if (requestCode == REQUEST_ADD_USER) {
+            if (resultCode == Activity.RESULT_OK) {
+                String name = data.getStringExtra(NAME);
+                String address = data.getStringExtra(ADDRESS);
+                String info = data.getStringExtra(INFO);
+                User user = new User(name, address, info);
                 adapter.addUser(user);
-                recyclerView.getAdapter().notifyItemInserted(adapter.getValues().lastIndexOf(user));
             }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("Users", (ArrayList<? extends Parcelable>) adapter.getValues());
+        outState.putParcelableArrayList(USERS, (ArrayList<? extends Parcelable>) adapter.getValues());
     }
 
     @Override

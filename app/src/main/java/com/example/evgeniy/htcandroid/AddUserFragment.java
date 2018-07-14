@@ -21,6 +21,10 @@ import butterknife.Unbinder;
 
 public class AddUserFragment extends DialogFragment {
 
+    static AddUserFragment newInstance() {
+        return new AddUserFragment();
+    }
+
     @BindView(R.id.name)
     EditText name;
 
@@ -32,9 +36,6 @@ public class AddUserFragment extends DialogFragment {
 
     private Unbinder unbinder;
 
-    static AddUserFragment newInstance() {
-        return new AddUserFragment();
-    }
 
     @NonNull
     @Override
@@ -42,17 +43,17 @@ public class AddUserFragment extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.fragment_dialog, null);
         unbinder = ButterKnife.bind(this, view);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(view)
-                .setPositiveButton("Ok", (dialog, which) -> {
+        return new AlertDialog.Builder(getActivity())
+                .setView(view)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     //отправляем результат обратно
                     Intent intent = new Intent();
-                    intent.putExtra("name", name.getText().toString());
-                    intent.putExtra("address", address.getText().toString());
-                    intent.putExtra("info", info.getText().toString());
+                    intent.putExtra(UsersFragment.NAME, name.getText().toString());
+                    intent.putExtra(UsersFragment.ADDRESS, address.getText().toString());
+                    intent.putExtra(UsersFragment.INFO, info.getText().toString());
                     getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
-                });
-        return builder.create();
+                })
+                .create();
     }
 
     @Override

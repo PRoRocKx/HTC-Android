@@ -6,24 +6,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.evgeniy.htcandroid.dummy.Users;
+import com.example.evgeniy.htcandroid.dummy.User;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Users.User> mValues;
+    private final List<User> mValues;
 
-    public MyUsersRecyclerViewAdapter(List<Users.User> items) {
+    public MyUsersRecyclerViewAdapter(List<User> items) {
         mValues = items;
     }
 
-    public void addUser(Users.User user){
+    public void addUser(User user){
         mValues.add(user);
+        notifyItemInserted(mValues.size()-1);
     }
 
-    public List<Users.User> getValues(){
+    public List<User> getValues(){
         return mValues;
     }
 
@@ -36,9 +40,7 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).name);
-        holder.mContentView.setText(mValues.get(position).info);
+        holder.bind(mValues.get(position));
     }
 
     @Override
@@ -47,16 +49,21 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public Users.User mItem;
+        final View mView;
+        @BindView(R.id.id)
+        TextView mIdView;
+        @BindView(R.id.content)
+        TextView mContentView;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.id);
-            mContentView = view.findViewById(R.id.content);
+            ButterKnife.bind(this,view);
+        }
+
+        public void bind(User user){
+            mIdView.setText(user.getName());
+            mContentView.setText(user.getInfo());
         }
 
         @Override

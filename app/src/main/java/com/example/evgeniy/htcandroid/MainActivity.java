@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.evgeniy.htcandroid.dummy.Users;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -14,11 +13,11 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentByTag("UsersFragment");
+        Fragment fragment = fragmentManager.findFragmentByTag(UsersFragment.class.getSimpleName());
         if (fragment == null) {
             fragmentManager
                     .beginTransaction()
-                    .add(R.id.container, UsersFragment.newInstance(), "UsersFragment")
+                    .add(R.id.container, UsersFragment.newInstance(), UsersFragment.class.getSimpleName())
                     .commit();
         }
     }
