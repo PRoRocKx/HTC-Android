@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.Random;
 
@@ -30,5 +31,18 @@ public class BlankFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Random random = new Random();
         view.setBackgroundColor(Color.rgb(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+        Button next = view.findViewById(R.id.btnNext2);
+        next.setOnClickListener(v -> addFragment());
+    }
+
+    private void addFragment() {
+        MainActivity activity = (MainActivity) getActivity();
+        if (activity != null) {
+            activity.getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(android.R.id.content, BlankFragment.newInstance(), BlankFragment.class.getSimpleName())
+                    .addToBackStack(BlankFragment.class.getSimpleName())
+                    .commit();
+        }
     }
 }

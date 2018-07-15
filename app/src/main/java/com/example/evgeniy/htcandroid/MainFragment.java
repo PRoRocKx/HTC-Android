@@ -36,7 +36,7 @@ public class MainFragment extends Fragment {
         if (activity != null) {
             activity.getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.container, BlankFragment.newInstance(), BlankFragment.class.getSimpleName())
+                    .replace(android.R.id.content, BlankFragment.newInstance(), BlankFragment.class.getSimpleName())
                     .addToBackStack(BlankFragment.class.getSimpleName())
                     .commit();
         }

@@ -7,16 +7,15 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int TIMEOUT = 2000;
-    private long time;
+    private static final int EXIT_TIMEOUT = 2000;
+    private long exitTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.container, MainFragment.newInstance(), MainFragment.class.getSimpleName())
+                .replace(android.R.id.content, MainFragment.newInstance(), MainFragment.class.getSimpleName())
                 .disallowAddToBackStack()
                 .commit();
     }
@@ -26,9 +25,9 @@ public class MainActivity extends AppCompatActivity {
         //
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager.findFragmentByTag(BlankFragment.class.getSimpleName()) == null) {
-            if (time == 0 || System.currentTimeMillis() - time > TIMEOUT) {
+            if (exitTime == 0 || System.currentTimeMillis() - exitTime > EXIT_TIMEOUT) {
                 Toast.makeText(this, R.string.tap_again_for_exit, Toast.LENGTH_SHORT).show();
-                time = System.currentTimeMillis();
+                exitTime = System.currentTimeMillis();
             } else {
                 super.onBackPressed();
             }
