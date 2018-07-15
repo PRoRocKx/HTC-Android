@@ -2,41 +2,67 @@ package com.example.evgeniy.htcandroid;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnEditorAction;
+
 public class LoginActivity extends AppCompatActivity {
+
+    private static final int PASSWORD_LENGTH_MIN = 6;
+    private static final int PASSWORD_LENGTH_MAX = 16;
+    private static final int PHONE_LENGTH = 11;
 
 
     private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private EditText mPhoneView;
-    private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
+    @BindView(R.id.phone)
+    EditText mPhoneView;
+    @BindView(R.id.password)
+    EditText mPasswordView;
+    @BindView(R.id.login_progress)
+    View mProgressView;
+    @BindView(R.id.login_form)
+    View mLoginFormView;
+
+
+    @OnClick(R.id.email_sign_in_button)
+    public void login() {
+        attemptLogin();
+    }
+
+    @OnEditorAction(R.id.password)
+    public boolean onEditorAction(int id) {
+        if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+            attemptLogin();
+            return true;
+        }
+        return false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mPhoneView = findViewById(R.id.phone);
+        ButterKnife.bind(this);
         mPhoneView.setSelection(mPhoneView.getText().length());
         // Set up the login form.
         mPhoneView.addTextChangedListener(new TextWatcher() {
@@ -93,28 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-        mPasswordView = findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
 
-        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
     }
 
 
@@ -175,11 +180,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private boolean isPasswordShort(String password) {
-        return password.length() < 6;
+        return password.length() < PASSWORD_LENGTH_MIN;
     }
 
     private boolean isPasswordLong(String password) {
-        return password.length() > 16;
+        return password.length() > PASSWORD_LENGTH_MAX;
     }
 
     private boolean isPasswordValid(String password) {
@@ -203,13 +208,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isPhoneValid(String phone) {
-        phone = phone.replaceAll("[\\+\\-\\(\\) ]", "");
-        if (phone.length() == 11) {
-            if (hasOnlyDigits(phone)) {
-                return true;
-            }
-        }
-        return false;
+        phone = phone.replaceAll("[+\\-() ]", "");
+        return phone.length() == PHONE_LENGTH && hasOnlyDigits(phone);
     }
 
 
@@ -221,8 +221,6 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
         int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
@@ -256,9 +254,14 @@ public class LoginActivity extends AppCompatActivity {
             mPassword = password;
         }
 
+        private void sendLogin() {
+            Log.d("TEST", mEmail);
+            Log.d("TEST", mPassword);
+        }
+
         @Override
         protected Boolean doInBackground(Void... params) {
-
+            sendLogin();
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
