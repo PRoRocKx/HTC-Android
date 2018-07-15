@@ -49,7 +49,6 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        final View mView;
         @BindView(R.id.id)
         TextView mIdView;
         @BindView(R.id.content)
@@ -57,7 +56,6 @@ public class MyUsersRecyclerViewAdapter extends RecyclerView.Adapter<MyUsersRecy
 
         ViewHolder(View view) {
             super(view);
-            mView = view;
             ButterKnife.bind(this,view);
         }
 
