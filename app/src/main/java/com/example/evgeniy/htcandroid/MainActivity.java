@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int TIMEOUT = 2000;
     private long time;
 
     @Override
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.container, MainFragment.newInstance(), "MainFragment")
+                .add(R.id.container, MainFragment.newInstance(), MainFragment.class.getSimpleName())
                 .disallowAddToBackStack()
                 .commit();
     }
@@ -24,9 +25,9 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         //
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if (fragmentManager.findFragmentByTag("BlankFragment") == null) {
-            if (time == 0 || System.currentTimeMillis() - time > 2000) {
-                Toast.makeText(this, "Нажмите ещё раз для выхода", Toast.LENGTH_SHORT).show();
+        if (fragmentManager.findFragmentByTag(BlankFragment.class.getSimpleName()) == null) {
+            if (time == 0 || System.currentTimeMillis() - time > TIMEOUT) {
+                Toast.makeText(this, R.string.tap_again_for_exit, Toast.LENGTH_SHORT).show();
                 time = System.currentTimeMillis();
             } else {
                 super.onBackPressed();
