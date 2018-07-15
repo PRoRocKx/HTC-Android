@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">HTC Android</string>
+    <string name="addUser">Добавление пользователя</string>
+    <string name="info">Заметка</string>
+    <string name="address">Адресс</string>
+    <string name="name">Имя</string>
 </resources>
